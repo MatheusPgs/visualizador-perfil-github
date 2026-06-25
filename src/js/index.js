@@ -11,6 +11,7 @@ async function searchGithubUser() {
         return;
     }
 
+    btnSearch.disabled = true;
     renderLoading(profileResults);
 
     try {
@@ -21,6 +22,8 @@ async function searchGithubUser() {
         console.error('Erro ao buscar o perfil do usuário:', error);
         showAlert(error.message || 'Ocorreu um erro ao buscar o perfil do usuário. Por favor, tente novamente mais tarde.');
         clearResults(profileResults);
+    } finally {
+        btnSearch.disabled = false;
     }
 }
 
@@ -28,6 +31,7 @@ btnSearch.addEventListener('click', searchGithubUser);
 
 inputSearch.addEventListener('keydown', (event) => {
     if (event.key === 'Enter') {
+        event.preventDefault();
         searchGithubUser();
     }
 });

@@ -11,10 +11,14 @@ export function showAlert(message) {
     alert(message);
 }
 
-export function renderProfile(container, userData, userRepos) {
+function createRepositoriesHTML(userRepos) {
+    if (!userRepos || userRepos.length === 0) {
+        return `<p>Este usuário não possui repositórios públicos.</p>`;
+    }
 
-    const repositoriesHTML = userRepos && userRepos.length > 0 ? userRepos.map(repo => `
-        <a href="${repo.html_url}" target="_blank">
+    return userRepos
+        .map(repo => `
+        <a href="${repo.html_url}" target="_blank" rel="noopener noreferrer">
             <div class="repository-card">
                 <h3>${repo.name}</h3>
                 <div class="repository-stats">
@@ -25,14 +29,23 @@ export function renderProfile(container, userData, userRepos) {
                 </div>
             </div>
         </a>
-        `).join('') : `<p>Este usuário não possui repositórios públicos.</p>`;
+        `)
+        .join('');
+}
+
+export function renderProfile(container, userData, userRepos) {
+    const displayName = userData.name || userData.login || 'Usuário GitHub';
+    const profileUrl = userData.html_url || '#';
+    const repositoriesHTML = createRepositoriesHTML(userRepos);
 
     container.innerHTML = `
   <div class="profile-card">
-      <img src="${userData.avatar_url}" alt="Avatar de ${userData.name || userData.login}" class="profile-avatar">
+      <img src="${userData.avatar_url}" alt="Avatar de ${displayName}" class="profile-avatar">
       <div class="profile-info">
-          <h2>${userData.name || 'Não possui nome cadastrado 😥.'}</h2>
+          <h2>${displayName}</h2>
+          <p class="profile-username">@${userData.login}</p>
           <p>${userData.bio || 'Não possui bio cadastrada 😢.'}</p>
+          <a href="${profileUrl}" target="_blank" rel="noopener noreferrer">Ver perfil no GitHub</a>
       </div>
   </div>
 
@@ -50,7 +63,7 @@ export function renderProfile(container, userData, userRepos) {
   <div class="profile-repositories">
       <h2>Repositórios</h2>
       <div class="repositories">
-            ${repositoriesHTML} 
+            ${repositoriesHTML}
         </div>
   </div>
   `;
