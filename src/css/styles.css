@@ -11,14 +11,14 @@
   --card: hsl(0, 0%, 100%);
   --primary: hsl(222.2, 47.4%, 11.2%);
   --primary-foreground: hsl(210, 40%, 98%);
-  
+
   --spacing-xs: 0.5rem;
   --spacing-sm: 0.75rem;
   --spacing-md: 1rem;
   --spacing-lg: 1.5rem;
   --spacing-xl: 2rem;
   --spacing-2xl: 3rem;
-  
+
   --font-xs: 0.75rem;
   --font-sm: 0.875rem;
   --font-md: 1rem;
@@ -26,19 +26,56 @@
   --font-xl: 1.5rem;
   --font-2xl: 1.875rem;
   --font-3xl: 2rem;
-  
+
   --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
   --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  
+
   --transition: all 0.2s;
 }
+@media (prefers-color-scheme: dark) {
+  :root {
+    --border: rgba(148, 163, 184, 0.24);
+    --ring: hsl(233, 89%, 62%);
+    --background: hsl(222, 15%, 12%);
+    --foreground: hsl(0, 0%, 97%);
+    --muted: hsl(223, 25%, 18%);
+    --muted-foreground: hsl(210, 16%, 74%);
+    --card: rgba(15, 23, 42, 0.92);
+    --primary: hsl(206, 100%, 88%);
+    --primary-foreground: hsl(222, 47%, 11.2%);
+    --shadow-sm: 0 4px 20px -4px rgba(0, 0, 0, 0.35);
+    --shadow-md: 0 10px 30px -8px rgba(0, 0, 0, 0.45);
+    --shadow-lg: 0 20px 30px -10px rgba(0, 0, 0, 0.5);
+  }
 
+  body {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 25%, #334155 50%, #475569 75%, #0f172a 100%);
+    color: var(--foreground);
+  }
+
+  .container {
+    background: rgba(15, 23, 42, 0.85);
+    border-color: rgba(148, 163, 184, 0.16);
+  }
+
+  .container header #input-search,
+  .container header #btn-search {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(148, 163, 184, 0.22);
+    color: var(--foreground);
+  }
+
+  .profile-card,
+  .repository-card {
+    background: rgba(255, 255, 255, 0.05);
+  }
+}
 body {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #f5576c 75%, #fda085 100%);
   background-size: 400% 400%;
-  font-family: "Inter", "Segoe UI", sans-serif;  
-  text-align: center;    
+  font-family: "Inter", "Segoe UI", sans-serif;
+  text-align: center;
   padding-bottom: 100px;
   min-height: 100vh;
   color: var(--foreground);
@@ -46,19 +83,19 @@ body {
 }
 
 main {
-  display: flex;  
+  display: flex;
   justify-content: center;
   flex-direction: column;
-  padding: var(--spacing-2xl) var(--spacing-md);      
+  padding: var(--spacing-2xl) var(--spacing-md);
 }
 
-.devicon-github-original{
+.devicon-github-original {
   font-size: var(--font-3xl);
   margin-bottom: var(--spacing-xl);
   color: #FFFFFF;
 }
 
-.section{
+.section {
   padding: 4rem 0;
   border-top: 1px solid var(--border);
 }
@@ -187,7 +224,7 @@ main {
 }
 
 .profile-counters {
-  display:flex;
+  display: flex;
   gap: 32px;
   justify-content: center;
   margin: 80px 0;
@@ -204,3 +241,68 @@ main {
   font-size: 2rem;
   font-weight: bold;
 }
+
+.profile-repositories {
+  margin: 2rem auto;
+  max-width: 900px;
+  background: transparent;
+}
+
+.profile-repositories h2 {
+  font-size: var(--font-xl);
+  font-weight: 700;
+  margin-bottom: var(--spacing-xl);
+  text-align: center;
+}
+
+.repositories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+}
+
+.repository-card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  padding: 1.5rem 1rem;
+  min-width: 250px;
+  max-width: 300px;
+  flex: 1 1 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  transition: box-shadow 0.2s;
+}
+
+.repository-card:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.repository-card h3 {
+  font-size: var(--font-md);
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--primary);
+  text-align: left;
+}
+
+.repository-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width:100%;
+}
+
+.repository-stats span {
+  font-size: var(--font-sm);
+  color: var(--muted-foreground);
+  background: #ececec;
+  border-radius: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  margin-bottom: 0.25rem;
+  text-align: left;
+}
+
+
